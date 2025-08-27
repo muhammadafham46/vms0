@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Subscription Pricing Setup</title>
+</head>
+<body>
+    <h1>Running Subscription Pricing Setup...</h1>
+    <?php
+    require_once '../config/database.php';
+
+    try {
+        $database = new Database();
+        $db = $database->getConnection();
+
+        // Read the SQL file
+        $sql = file_get_contents('add_subscription_pricing.sql');
+
+        // Execute the SQL commands
+        $db->exec($sql);
+        echo "<p>Subscription pricing system has been successfully set up.</p>";
+    } catch (PDOException $e) {
+        echo "<p>Error: " . $e->getMessage() . "</p>";
+    }
+    ?>
+</body>
+</html>
